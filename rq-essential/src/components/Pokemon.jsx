@@ -1,8 +1,9 @@
 import React from 'react';
 import { usePokemon } from '../hooks/usePokemon';
+import { PokemonDetail } from './PokemonDetail';
 
 export function Pokemon({ pokemonName }) {
-  const query = usePokemon({pokemonName});
+  const query = usePokemon({ pokemonName });
   const { data, isSuccess, isError, isLoading, isFetching } = query;
 
   if (isLoading) return <p>Loading...</p>;
@@ -11,8 +12,11 @@ export function Pokemon({ pokemonName }) {
   if (isSuccess)
     return (
       <div className="App">
-        {!pokemonName ? data.results.map((pokemon) => <div key={pokemon.name}>{pokemon.name}</div>)
-          : <img src={data.sprites.front_default }/>}
+        {!pokemonName ? (
+          data.results.map((pokemon) => <PokemonDetail key={pokemon.name} pokemonName={pokemon.name} />)
+        ) : (
+          <PokemonDetail pokemonName={pokemonName} />
+        )}
         {isFetching && <p>Fetching...</p>}
       </div>
     );
