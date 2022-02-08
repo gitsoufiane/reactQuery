@@ -1,12 +1,23 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import axios,{ CancelToken } from 'axios';
+
 
 const fetchPokemon = async ({ queryKey }) => {
   const [, pokemonName] = queryKey;
   await new Promise((resolve) => setTimeout(resolve, 4000));
-  return axios
-    .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+  const source = CancelToken.source();
+
+  const promise = axios
+    .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, {
+      cancelToken: source.token,
+    })
     .then((res) => res.data);
+
+  promise.cancel = () => {
+    source.cancel('Query Cancelled By React Query')
+  }
+
+  return promise;
 };
 
 export const usePokemon = ({ pokemonName = '' } = {}) =>
@@ -24,4 +35,9 @@ export const usePokemon = ({ pokemonName = '' } = {}) =>
 
     // trigger the query when enabled is true
     enabled: true,
+
+    //number of time the query should retry if failed
+    retry: 1,
+    // retry delay in milliseconds between failed queries
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });

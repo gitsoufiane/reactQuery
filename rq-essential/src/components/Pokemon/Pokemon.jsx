@@ -1,6 +1,6 @@
 import React from 'react';
-import { usePokemon } from '../hooks/usePokemon';
-import { PokemonDetail } from './PokemonDetail';
+import { usePokemon } from './usePokemon';
+import { PokemonDetail } from '.';
 
 export function Pokemon({ pokemonName }) {
   const query = usePokemon({ pokemonName });
@@ -11,7 +11,7 @@ export function Pokemon({ pokemonName }) {
 
   if (isSuccess)
     return (
-      <div className="App">
+      <div className="flex">
         {!pokemonName ? (
           data.results.map((pokemon) => <PokemonDetail key={pokemon.name} pokemonName={pokemon.name} />)
         ) : (

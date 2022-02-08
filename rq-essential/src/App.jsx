@@ -1,7 +1,6 @@
 import React from 'react';
-import { Pokemon } from './components/Pokemon';
-import { Count } from './components/Count';
-import { PokemonSearch } from './components/PokemonSearch';
+import { Pokemon,Count ,PokemonSearch} from './components/Pokemon';
+import {Posts } from './components/Posts'
 
 function App() {
   const [pokemonName, setPokemonName] = React.useState('');
@@ -15,6 +14,9 @@ function App() {
       <Count />
       <div className="">
         <Pokemon pokemonName={pokemonName} />
+      </div>
+      <div>
+        <Posts />
       </div>
     </div>
   );

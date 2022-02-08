@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePokemon } from '../hooks/usePokemon';
+import { usePokemon } from './usePokemon';
 
 export function PokemonDetail({ pokemonName }) {
   const { data, isSuccess } = usePokemon({ pokemonName });
