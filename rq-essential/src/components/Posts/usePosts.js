@@ -52,6 +52,8 @@ export const usePosts = ({ userId = 1 } = {}) => {
     initialData: postInitialData,
     cacheTime: Infinity,
     onSuccess: data => data.forEach(post => queryClient.setQueryData(['post', post.id], post)),
+    onError: error => console.log(error),
+    onSettled: (data,error)=> console.log({data,error})
   });
 }
 
