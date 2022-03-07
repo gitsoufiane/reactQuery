@@ -1,4 +1,4 @@
-import { useQuery,useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 const fetchPosts = async ({ queryKey }) => {
@@ -6,14 +6,11 @@ const fetchPosts = async ({ queryKey }) => {
   const posts = axios
     .get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
     .then((res) => res.data);
-
-
   return posts;
 };
 
 const fetchPost = async ({ queryKey }) => {
   const [, postId] = queryKey;
-
   const promise = axios
     .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
     .then((res) => res.data);
@@ -22,11 +19,9 @@ const fetchPost = async ({ queryKey }) => {
 };
 const fetchUser = async ({ queryKey }) => {
   const [, email] = queryKey;
-
   const promise = axios
     .get(`https://jsonplaceholder.typicode.com/users?email=${email}`)
     .then((res) => res.data[0]);
-
   return promise;
 };
 
@@ -45,27 +40,28 @@ const postInitialData = [
     body: 'est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla',
   },
 ];
+
 export const usePosts = ({ userId = 1 } = {}) => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   return useQuery(['posts', userId], fetchPosts, {
     enabled: !!userId,
     initialData: postInitialData,
     cacheTime: Infinity,
-    onSuccess: data => data.forEach(post => queryClient.setQueryData(['post', post.id], post)),
-    onError: error => console.log(error),
-    onSettled: (data,error)=> console.log({data,error})
+    onSuccess: (data) =>
+      data.forEach((post) => queryClient.setQueryData(['post', post.id], post)),
+    onError: (error) => console.log(error),
+    onSettled: (data, error) => console.log({ data, error }),
   });
-}
-
+};
 
 export const usePost = ({ postId = '' } = {}) => {
-  const queryClient = useQueryClient()
-  const cache = queryClient.getQueryData(['posts',1]) 
+  const queryClient = useQueryClient();
+  const cache = queryClient.getQueryData(['posts', 1]);
   return useQuery(['post', postId], fetchPost, {
     // use cache to access initial data from post list
     initialData: () => {
-      return cache?.find(post => post.id === postId)
-    }
+      return cache?.find((post) => post.id === postId);
+    },
   });
 };
 

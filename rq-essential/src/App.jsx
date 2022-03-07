@@ -6,12 +6,11 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   const [pokemonName, setPokemonName] = React.useState('');
-
   const [postId, setPostId] = React.useState(-1);
   return (
     <BrowserRouter>
       <nav>
-        <ul>
+        <ul className='flex items-center justify-start '>
           <li>
             <Link to="/pokemon">Pokemon</Link>
           </li>
