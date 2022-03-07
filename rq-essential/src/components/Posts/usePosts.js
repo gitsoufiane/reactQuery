@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 
-const fetchPosts = async ({ queryKey }) => {
+export const fetchPosts = async ({ queryKey }) => {
   const [, userId] = queryKey;
   const posts = axios
     .get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
@@ -9,7 +9,7 @@ const fetchPosts = async ({ queryKey }) => {
   return posts;
 };
 
-const fetchPost = async ({ queryKey }) => {
+export const fetchPost = async ({ queryKey }) => {
   const [, postId] = queryKey;
   const promise = axios
     .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
