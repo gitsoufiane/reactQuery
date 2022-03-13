@@ -1,10 +1,11 @@
 import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 
+const POST_URL='http://localhost:3001/'
 export const fetchPosts = async ({ queryKey }) => {
   const [, userId] = queryKey;
   const posts = axios
-    .get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+    .get(`${POST_URL}posts?userId=${userId}`)
     .then((res) => res.data);
   return posts;
 };
@@ -12,7 +13,7 @@ export const fetchPosts = async ({ queryKey }) => {
 export const fetchPost = async ({ queryKey }) => {
   const [, postId] = queryKey;
   const promise = axios
-    .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+    .get(`${POST_URL}posts/${postId}`)
     .then((res) => res.data);
 
   return promise;
@@ -20,7 +21,7 @@ export const fetchPost = async ({ queryKey }) => {
 const fetchUser = async ({ queryKey }) => {
   const [, email] = queryKey;
   const promise = axios
-    .get(`https://jsonplaceholder.typicode.com/users?email=${email}`)
+    .get(`${POST_URL}users?email=${email}`)
     .then((res) => res.data[0]);
   return promise;
 };
