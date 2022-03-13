@@ -12,12 +12,12 @@ export function PostForm() {
     {
       onSuccess: (data, variables, context) => {
         client.invalidateQueries('posts');
-        console.log({ data, variables, context })
+        console.log('onSuccess',{ data, variables, context })
       },
       onError: (error, variables, context) =>
         console.log({ error, variables, context }),
-      onSetted: (data, error, variables, context) =>
-        console.log({ data, error, variables, context }),
+      onSettled: (data, error, variables, context) =>
+        console.log('onSettled',{ data, error, variables, context }),
     },
   );
 
