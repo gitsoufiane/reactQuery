@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useMutation } from 'react-query';
-import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function PostForm() {
   const [postText, setPostText] = React.useState('');

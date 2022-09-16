@@ -1,9 +1,7 @@
 import React from 'react';
 import { usePosts, useUser, fetchPosts, fetchPost } from './usePosts';
-import { useQueryClient } from 'react-query';
-import {
-  PostForm
-} from './PostForm';
+import { useQueryClient } from '@tanstack/react-query';
+import { PostForm } from './PostForm';
 
 export function Posts({ setPostId }) {
   const userQuery = useUser({ email: 'Sincere@april.biz' });
@@ -19,7 +17,7 @@ export function Posts({ setPostId }) {
   return (
     <div>
       <h1>List of Posts</h1>
-      <PostForm/>
+      <PostForm />
       {userQuery.isSuccess && <p>User : {userQuery.data.name}</p>}
       {postsQuery.isSuccess && (
         <p>
@@ -27,7 +25,11 @@ export function Posts({ setPostId }) {
             <div
               key={post.id}
               onClick={() => setPostId(post.id)}
-              onMouseEnter={() => client.prefetchQuery(['post', post.id],fetchPost,{ staleTime : Infinity})}
+              onMouseEnter={() =>
+                client.prefetchQuery(['post', post.id], fetchPost, {
+                  staleTime: Infinity,
+                })
+              }
             >
               {post.title}
             </div>

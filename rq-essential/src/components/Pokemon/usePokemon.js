@@ -1,6 +1,5 @@
-import { useQuery } from 'react-query';
-import axios,{ CancelToken } from 'axios';
-
+import { useQuery } from '@tanstack/react-query';
+import axios, { CancelToken } from 'axios';
 
 const fetchPokemon = async ({ queryKey }) => {
   const [, pokemonName] = queryKey;
@@ -14,8 +13,8 @@ const fetchPokemon = async ({ queryKey }) => {
     .then((res) => res.data);
 
   promise.cancel = () => {
-    source.cancel('Query Cancelled By React Query')
-  }
+    source.cancel('Query Cancelled By React Query');
+  };
 
   return promise;
 };

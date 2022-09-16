@@ -1,7 +1,7 @@
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-const POST_URL='http://localhost:3001/'
+const POST_URL = 'http://localhost:3001/';
 export const fetchPosts = async ({ queryKey }) => {
   const [, userId] = queryKey;
   const posts = axios
